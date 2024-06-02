@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gestion de productos{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <ul class="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/albaranes">Albaranes</a></li>
+            <li><a href="/stock">Productos</a></li>
+            <li><a href="/facturas">Facturas</a></li>
+        </ul>
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

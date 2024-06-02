@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Factura{% endblock %}
+
+{% block content %}
+    <h2 class="heading">Factura</h2>
+    <form action="{{ url_for('facturas') }}" method="post" class="form-container form-factura">
+        {{ form.hidden_tag() }}
+        {% for i in range(1, 5) %}
+        <div class="form-group">
+            <label for="nombre{{ i }}" class="form-label">Nombre:</label>
+            <select name="nom{{ i }}" id="nombre{{ i }}" class="form-select">
+                <option value="">Seleccionar producto</option> <!-- Opción por defecto en blanco -->
+                {% for producto in productos %}
+                    <option value="{{ producto.nombre }}">{{ producto.nombre }}</option>
+                {% endfor %}
+            </select>
+            <label for="cantidad{{ i }}" class="form-label">Cantidad:</label>
+            {{ form['cantidad' + i|string] }}
+            {% for error in form['cantidad' + i|string].errors %}
+            <span class="error">{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div class="form-actions">
+            <input type="submit" value="Enviar Factura" class="btn-submit">
+        </div>
+    </form>
+{% endblock %}

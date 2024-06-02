@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Albaranes{% endblock %}
+
+{% block content %}
+    <h2 class="heading">Crear Albarán</h2>
+    <form action="{{ url_for('albaranes') }}" method="post" class="form-container form-albaran">
+        {{ form.hidden_tag() }}
+        {% for i in range(1, 5) %}
+        <div class="form-group">
+            <label for="nombre{{ i }}" class="form-label">Nombre:</label>
+            {{ form['nom' + i|string] }}
+            <label for="cantidad{{ i }}" class="form-label">Cantidad:</label>
+            {{ form['cantidad' + i|string]}}
+            {% for error in form['nom' + i|string].errors %}
+            <span class="error">{{ error }}</span>
+            {% endfor %}
+            {% for error in form['cantidad' + i|string].errors %}
+            <span class="error">{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div class="form-actions">
+            <input type="submit" value="Crear Albaran" class="btn-submit">
+        </div>
+    </form>
+{% endblock %}

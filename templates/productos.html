@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Stock{% endblock %}
+
+{% block content %}
+    <h2 class="heading">Productos</h2>
+    <table class="table">
+        <tr class="table-header">
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Estado</th> <!-- Nueva columna para mostrar el estado -->
+          <th>Acción</th> <!-- Nueva columna para el botón de acción -->
+        </tr>
+        {% for p in productos %}
+          <tr class="table-row">
+            <td>{{ p.id }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.cantidad }}</td>
+            <td>
+              <form action="{{ url_for('editar_precio', producto_id=p.id) }}" method="post">
+                <input type="number" name="precio" value="{{ p.precio }}" step="0.01" required>
+                <button type="submit">Guardar</button>
+              </form>
+            </td>
+            <td>{{ "Habilitado" if p.habilitado else "Deshabilitado" }}</td> <!-- Muestra el estado actual del producto -->
+            <td>
+              <form action="{{ url_for('cambiar_estado_producto', producto_id=p.id) }}" method="post">
+                <input type="hidden" name="habilitado" value="{{ not p.habilitado }}">
+                <button type="submit">{{ "Deshabilitar" if p.habilitado else "Habilitar" }}</button> <!-- El texto del botón cambia según el estado actual del producto -->
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
